@@ -54,8 +54,8 @@
 - --distribution-id: CloudFront 배포 ID. CLOUDFRONT_DISTRIBUTION_ID 로 GitHub Secrets에 저장
 - --paths "/*": 모든 파일을 새로고침하도록 무효화함. IAM 사용자에 cloudfront:CreateInvalidation 권한이 있어야 함
 - CloudFront 캐시 무효화는 S3 업로드 후, 사용자에게 새 파일을 보이게 하기 위한 필수 단계
-- 안 하면 사용자에게 계속 이전 버전이 보여서 “배포했는데 왜 안 바뀌지?” 현상이 생겨!
-- 그런데, 무료가 아니고 무료라는게 함정..
+- 안 하면 사용자에게 계속 이전 버전이 보여서 “배포했는데 왜 안 바뀌지?” 현상이 생겨
+- 그런데, 무료가 아니고 유료라는게 함정..🥲
 ```js
 jobs:
   deploy:
