@@ -54,7 +54,7 @@
 - --distribution-id: CloudFront 배포 ID. CLOUDFRONT_DISTRIBUTION_ID 로 GitHub Secrets에 저장
 - --paths "/*": 모든 파일을 새로고침하도록 무효화함. IAM 사용자에 cloudfront:CreateInvalidation 권한이 있어야 함
 - CloudFront 캐시 무효화는 S3 업로드 후, 사용자에게 새 파일을 보이게 하기 위한 필수 단계
-- 안 하면 사용자에게 계속 이전 버전이 보여서 “배포했는데 왜 안 바뀌지?” 현상이 생겨
+- 안 하면 사용자에게 계속 이전 버전이 보여서 '배포했는데 왜 안 바뀌지?' 라고 생각하게 된다..
 - 그런데, 무료가 아니고 유료라는게 함정..🥲
 ```js
 jobs:
@@ -66,16 +66,41 @@ jobs:
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
 
-```  
+```
+
 ### [CDN 도입 후 성능 개선]
-#### 1. 페이지를 불러오는 속도가 빠르다.<br/>
-#### <cdn 도입 전>
-<img src="https://github.com/user-attachments/assets/1be90842-aa3b-44ba-b087-ec6cc7fa4042" width="400" height="400">
+#### 1. 페이지를 불러오는 속도가 빠르다.
+<table>
+  <tr>
+    <td align="center">
+       <strong>CDN 도입 전</strong><br>
+       <img src="https://github.com/user-attachments/assets/1be90842-aa3b-44ba-b087-ec6cc7fa4042" width="400" height="400">
+    </td>
+    <td align="center">
+       <strong>CDN 도입 후</strong><br>
+       <img src="https://github.com/user-attachments/assets/c77d6ed2-decf-4f6c-959b-2d79b4e2a041" width="400" height="400">
+    </td>
+  </tr>
+</table>
 
-#### <cdn 도입 후>
-<img src="https://github.com/user-attachments/assets/c77d6ed2-decf-4f6c-959b-2d79b4e2a041" width="400" height="400">
+#### 2. 캐시의 중요성.
+CloudFront는 한 번 로딩한 S3 정적 파일들을 캐시에 저장해서 뿌리기 때문에, '캐시 사용 중지'를 클릭하면 페이지를 불러오는 속도가 느려진다.<br/>
+-> 매번 S3 원본 서버에 직접 요청해야 하기 때문!
+<table>
+  <tr>
+    <td align="center">
+       <strong>캐시 사용</strong><br>
+       <img src="https://github.com/user-attachments/assets/c77d6ed2-decf-4f6c-959b-2d79b4e2a041" width="400" height="400">
+    </td>
+    <td align="center">
+       <strong>캐시 사용 중지</strong><br>
+       <img src="https://github.com/user-attachments/assets/d4c8f5d5-f623-4fad-89f8-dd848d64310a" width="400" height="400">
+    </td>
+  </tr>
+</table>
 
-
+<br/>
+<br/>
   
 #### ✅S3 버킷 웹사이트 엔드포인트 : http://mydogissuperstar.s3-website.us-east-2.amazonaws.com/
 #### ✅CloudFront 배포 도메인 이름 : https://d3v0y563zymiaj.cloudfront.net/
