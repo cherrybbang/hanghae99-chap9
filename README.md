@@ -1,6 +1,6 @@
 ### 배포 파이프라인 다이어그램
 
-![aws-workflow](https://github.com/user-attachments/assets/c6923be3-7644-4c8b-aac0-875c8983085e)
+<img src="https://github.com/user-attachments/assets/c6923be3-7644-4c8b-aac0-875c8983085e" width="700px" height="700px">
 
 ### [배포 파이프라인 순서]
 1. GitHub 코드 Push
@@ -67,7 +67,15 @@ jobs:
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
 
 ```  
-<br/>
+### [CDN 도입 후 성능 개선]
+#### 1. 페이지를 불러오는 속도가 빠르다.<br/>
+#### <cdn 도입 전>
+<img src="https://github.com/user-attachments/assets/1be90842-aa3b-44ba-b087-ec6cc7fa4042" width="400" height="400">
+
+#### <cdn 도입 후>
+<img src="https://github.com/user-attachments/assets/c77d6ed2-decf-4f6c-959b-2d79b4e2a041" width="400" height="400">
+
+
   
 #### ✅S3 버킷 웹사이트 엔드포인트 : http://mydogissuperstar.s3-website.us-east-2.amazonaws.com/
 #### ✅CloudFront 배포 도메인 이름 : https://d3v0y563zymiaj.cloudfront.net/
